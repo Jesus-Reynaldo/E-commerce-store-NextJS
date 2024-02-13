@@ -8,17 +8,17 @@ const productsInCart = [
   initialData.products[1],
   initialData.products[2],
 ]
-export default function CartPage() {
+export default function CheckOutPage() {
   return (
     <div className="flex  justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">
-        <Title title="Carrito"/>
+        <Title title="Verificar Order"/>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
           {/* Carrito */}
           <div className="flex flex-col mt-5">
-            <span className="text-xl">Agregar más items</span>
-            <Link href="/" className="underline mb-5">
-              Continúa comprando
+            <span className="text-xl">Ajustar elementos</span>
+            <Link href="/cart" className="underline mb-5">
+              Editar carrito
             </Link>
           {/* Items */}
           {
@@ -32,11 +32,8 @@ export default function CartPage() {
                 />
                 <div>
                   <p>{product.title}</p>
-                  <p>{product.price}</p>
-                  <QuantitySelector quantity={3} />
-                  <button className="underline mt-3">
-                    Remover
-                  </button>
+                  <p>{product.price} x 3</p>
+                  <p className='underline font-bold'>Subtotal: ${product.price * 3}</p>
                 </div>
               </div>
             ))
@@ -47,6 +44,21 @@ export default function CartPage() {
           {/* Checkout */}
 
           <div className="bg-white rounded-xl shadow-xl p-7">
+            
+            <h2 className="text-2xl font-bold">Direccion de entrega</h2>
+            <div className="mb-10">
+              <p className="text-xl">Shana Braun</p>
+              <p>400 S Melrose Dr</p>
+              <p>Vista</p>
+              <p>California</p>
+              <p>United States</p>
+              <p>CP 92081</p>
+              <p>(760) 967-7777</p>
+            </div>
+
+            {/* Divider */}
+            <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
+
             <h2 className="text-2xl mb-2">Resumen de orden</h2>
             <div className="grid grid-cols-2">
               <span>No. Productos</span>
@@ -64,11 +76,17 @@ export default function CartPage() {
             </div>
 
             <div className="mt-5 mb-2 w-full">
+              <p className="mb-5">
+                {/* Disclaimer */}
+                <span className="text-xs">
+                  Al hacer clic en Colocar orden, aceptas nuestros <a href="#" className="underline">términos y condiciones</a> y <a href="#" className="underline">política de privacidad</a>
+                </span>
+              </p>
               <Link
                 className="flex btn-primary justify-center"
-                href="/checkout/address"
+                href="/orders/123"
               >
-                Checkout
+                Colocar Orden
               </Link>
             </div>
 
