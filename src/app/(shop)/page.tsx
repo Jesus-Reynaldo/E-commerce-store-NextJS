@@ -1,5 +1,5 @@
 import { getPaginatedProductsWithImages } from "@/actions";
-import { Title, ProductGrid } from "@/components";
+import { Title, ProductGrid, Pagination } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props{
@@ -18,6 +18,7 @@ export default async function Home({searchParams}:Props) {
     <>
       <Title title="Tienda" subtitle="Todo los productos" className="mb-2" />
       <ProductGrid products={products} />
+      <Pagination totalPages={totalPages} />
     </>
   );
 }
