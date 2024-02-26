@@ -1,9 +1,23 @@
 'use server'
 import prisma from "@/lib/prisma"
-export const getPaginatedProductsWithImages = async() =>{
+
+interface PaginationOptions{
+  page?:number,
+  take?:number
+}
+export const getPaginatedProductsWithImages = async({
+  page=1,
+  take=12
+}:PaginationOptions) =>{
+
+  if ( isNaN( Number(page) ) ) page = 1
+  if ( page < 1 ) page = 1
+
   try{
+    //1. Get the products
     const products = await prisma.product.findMany({
-      take:12,
+      take:take,
+      skip:(page-1)*take,
       include:{
         ProductImage:{
           take: 2,
@@ -13,9 +27,14 @@ export const getPaginatedProductsWithImages = async() =>{
         }
       }
     })
+
+    //2. Get total pages
+    const totalCount = await prisma.product.count({})
+    const totalPages = Math.ceil(totalCount / take)
+
     return{
-      currentPage:1,
-      totalPages: 10,
+      currentPage:page,
+      totalPages: totalPages,
       products:products.map(product => ({
         ...product,
         images: product.ProductImage.map(image => image.url)
