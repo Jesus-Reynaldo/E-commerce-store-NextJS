@@ -1,3 +1,5 @@
+export { StockLabel } from "./product/stock-label/StockLabel";
+
 export { Pagination } from "./ui/pagination/Pagination";
 export { Footer } from "./ui/footer/Footer";
 export { ProductMobileSlideshow } from "./product/slideshow/ProductMobileSlideshow";
