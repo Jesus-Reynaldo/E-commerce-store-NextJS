@@ -1,3 +1,5 @@
+export { Provider } from "./provider/Provider";
+
 export { StockLabel } from "./product/stock-label/StockLabel";
 
 export { Pagination } from "./ui/pagination/Pagination";

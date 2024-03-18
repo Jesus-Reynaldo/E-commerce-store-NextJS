@@ -1,3 +1,5 @@
+import bcryptjs from 'bcryptjs'
+import email from 'next-auth/providers/email';
 interface SeedProduct {
     description: string;
     images: string[];
@@ -11,10 +13,18 @@ interface SeedProduct {
     gender: 'men'|'women'|'kid'|'unisex'
 }
 
+interface SeedUser{
+    email: string
+    password: string
+    name: string
+    role: 'admin' | 'user'
+}
+
 type ValidSizes = 'XS'|'S'|'M'|'L'|'XL'|'XXL'|'XXXL';
 type ValidTypes = 'shirts'|'pants'|'hoodies'|'hats';
 
 interface SeedData {
+    users: SeedUser[]; 
     categories: string[],
     products: SeedProduct[],
 }
@@ -23,6 +33,20 @@ interface SeedData {
 
 
 export const initialData: SeedData = {
+    users: [
+        {
+            email:'exampleadmin@email.com',
+            name: 'Example Admin',
+            password: bcryptjs.hashSync('password12345'),
+            role: 'admin',
+        },
+        {
+            email:'exampleuser@email.com',
+            name: 'Example User',
+            password: bcryptjs.hashSync('password12345'),
+            role: 'user',
+        }
+    ],
     categories:[
         'Shirts','Pants','Hoodies','Hats'
     ],
