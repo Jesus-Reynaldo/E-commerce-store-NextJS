@@ -1,14 +1,21 @@
-version: '3.8'
-
+version: '3.9'
 services:
-  postgres-db:
-    image: postgres:15.3
+  db:
+    image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ./postgres:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+        - 5433:5432
+    volumes:
+        - my_pg_v:/var/lib/postgresql/data/
+    environment:
+        - POSTGRES_DB=${DB_NAME}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_USER=${DB_USER}
+
+volumes:
+  my_pg_v:
+
+networks:
+  default:
+    name: backend
+

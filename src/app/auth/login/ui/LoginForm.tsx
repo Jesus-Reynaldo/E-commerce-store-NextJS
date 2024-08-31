@@ -1,26 +1,25 @@
 "use client";
 
-import { authenticate } from "@/actions";
-import clsx from "clsx";
+import { useEffect } from "react";
 import Link from "next/link";
 import { useFormState, useFormStatus } from "react-dom";
+
+import { authenticate } from "@/actions";
 import { IoInformationOutline } from "react-icons/io5";
-import { useEffect } from 'react';
-//import { useRouter } from "next/navigation";
+import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 export const LoginForm = () => {
-  //const router = useRouter()
+  const router = useRouter();
   const [state, dispatch] = useFormState(authenticate, undefined);
-  
-  useEffect(() => {
-    if(state === 'Success'){
-      //router.replace('/')
-      window.location.replace('/')
-    }
-  })
-  
 
-  console.log(state);
+  useEffect(() => {
+    if (state === "Success") {
+      // router.replace("/");
+      window.location.replace("/");
+    }
+  });
+
   return (
     <form action={dispatch} className="flex flex-col">
       <label htmlFor="email">Correo electrónico</label>
@@ -54,7 +53,6 @@ export const LoginForm = () => {
 
       <LoginButton />
 
-      {/* divisor l ine */}
       <div className="flex items-center my-5">
         <div className="flex-1 border-t border-gray-500"></div>
         <div className="px-2 text-gray-800">O</div>
@@ -70,13 +68,15 @@ export const LoginForm = () => {
 
 function LoginButton() {
   const { pending } = useFormStatus();
+
   return (
-    <button type="submit" className={
-      clsx({
+    <button
+      type="submit"
+      className={clsx({
         "btn-primary": !pending,
-        "btn-disabled":pending,
-    })}
-    disabled={pending}
+        "btn-disabled": pending,
+      })}
+      disabled={pending}
     >
       Ingresar
     </button>
