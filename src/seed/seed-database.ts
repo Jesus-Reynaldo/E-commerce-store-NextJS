@@ -1,20 +1,24 @@
 import { initialData } from "./seed"
 import prisma from '../lib/prisma';
-import { Product } from '../interfaces/products.interface';
-import { create } from 'zustand';
+import { countries } from "./seed-countries";
 
 async function main(){
   // 1. Borrar registros previos
   await Promise.all([
     prisma.user.deleteMany(),
+    prisma.country.deleteMany(),
     prisma.productImage.deleteMany(),
     prisma.product.deleteMany(),
     prisma.category.deleteMany(),
+    prisma.userAddress.deleteMany(),
   ])
 
   const { categories, products , users} = initialData
   await prisma.user.createMany({
     data: users
+  })
+  await prisma.country.createMany({
+    data: countries
   })
   // 2. Categorias
   const categoriesData = categories.map(category => ({

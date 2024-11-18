@@ -1,7 +1,24 @@
 import { Title } from '@/components';
-import Link from 'next/link';
+import { AddressFrom } from './ui/AddressFrom';
+import { getCountries } from '@/actions';
+import { Country } from '@/interfaces';
+import { auth } from '@/auth.config';
+import { getUserAddress } from '@/actions/address/get-user-address';
 
-export default function NamePage() {
+
+
+export default async function AddressPage() {
+  const countries:Country[] | undefined = await getCountries();
+  const session = await auth();
+
+  if(!session?.user){
+    return (
+      <h3 className='text-5xl'>500 - No hay session de usuario</h3>
+    )
+  }
+
+  const userAddress = await getUserAddress(session.user.id) ?? undefined;
+
   return (
     <div className="flex flex-col sm:justify-center sm:items-center mb-72 px-10 sm:px-0">
 
@@ -11,88 +28,7 @@ export default function NamePage() {
         
         <Title title="Dirección" subtitle="Dirección de entrega" />
 
-        <div className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
-
-
-          <div className="flex flex-col mb-2">
-            <span>Nombres</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Apellidos</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Dirección</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Dirección 2 (opcional)</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-
-          <div className="flex flex-col mb-2">
-            <span>Código postal</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Ciudad</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>País</span>
-            <select 
-              className="p-2 border rounded-md bg-gray-200"
-            >
-              <option value="">[ Seleccione ]</option>
-              <option value="CRI">Costa Rica</option>
-            </select>
-          </div>
-
-          <div className="flex flex-col mb-2">
-            <span>Teléfono</span>
-            <input 
-              type="text" 
-              className="p-2 border rounded-md bg-gray-200"
-            />
-          </div>
-
-
-
-          <div className="flex flex-col mb-2 sm:mt-10">
-            <Link 
-              href='/checkout'
-              className="btn-primary flex w-full sm:w-1/2 justify-center ">
-              Siguiente
-            </Link>
-          </div>
-
-
-        </div>
+        <AddressFrom countries={countries} userStoreAddress={userAddress} />
 
       </div>
 
