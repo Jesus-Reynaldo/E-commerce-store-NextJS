@@ -1,4 +1,10 @@
-import { getUserAddress } from "./address/get-user-address";
+export { getOrdersByUser } from './order/get-orders-by-user';
+
+export { getOrderById } from './order/get-order-by-id';
+
+export { getUserAddress } from "./address/get-user-address";
+
+export { placeOrder } from "./order/place-order";
 
 export { getCountries } from "./country/get-countries";
 
@@ -19,4 +25,3 @@ export { getPaginatedProductsWithImages } from "./product/product-pagination";
 export {setUserAddress } from "./address/set-user-address"
 
 export {deleteUserAddress } from "./address/delete-user-address"
-
