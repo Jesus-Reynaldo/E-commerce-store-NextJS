@@ -1,4 +1,8 @@
-export { Provider } from "./provider/Provider";
+export { OrderStatus } from "./orders/OrderStatus";
+
+export { PayPalButton } from "./paypal/PayPalButton";
+
+export { Providers } from "./providers/Providers";
 
 export { StockLabel } from "./product/stock-label/StockLabel";
 
@@ -14,3 +18,4 @@ export { ProductGrid } from "./products/product-grid/ProductGrid";
 export { PageNotFound } from "./ui/not-found/PageNotFound";
 export { Title } from "./ui/title/Title";
 export { TopMenu } from "./ui/top-menu/TopMenu";
+

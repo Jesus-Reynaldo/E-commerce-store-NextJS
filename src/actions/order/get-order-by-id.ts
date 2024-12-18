@@ -1,13 +1,10 @@
 'use server'
 import prisma from '@/lib/prisma'
-import { Product } from '../../interfaces/products.interface';
-import { OrderItem } from '@/interfaces';
 import { auth } from '@/auth.config';
-import { OrderAddress } from '../../interfaces/orderItem.interface';
 
 export const getOrderById = async (id: string) => {
   const session = await auth();
-  if (!session?.user.id) {
+  if (!session?.user) {
     return {
       ok: false,
       message: 'Debe de estar autenticado',
@@ -46,7 +43,7 @@ export const getOrderById = async (id: string) => {
     if(!order) throw `${id} not found`
 
     if(session.user.role === 'user'){
-      if(session.user.id === order.userId){
+      if(session.user.id !== order.userId){
         throw `${id} no es de ese usuario`
       }
     }
